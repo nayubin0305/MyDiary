@@ -1,0 +1,16 @@
+import React from "react";
+import "./EmotionItem.css"
+
+const EmotionItem = ({id, img, name, onClink, isSelected}) => {
+    const handleOnClick = () => {
+        onClink(id);
+    };
+    return (
+        <div className={["EmotionItem", isSelected ? `EmotionItem_on_${id}` : `EmotionItem_off`].join(" ")} onClick={handleOnClick}>
+            <img alt={`emtion${id}`} src={img}/>
+            <span>{name}</span>
+        </div>
+    );
+};
+
+export default React.memo(EmotionItem);

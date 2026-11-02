@@ -1,122 +1,152 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import './App.css';
+import Home from './pages/Home';
+import New from './pages/New';
+import Diary from './pages/Diary';
+import Edit from './pages/Edit';
+import React, { useReducer, useRef, useEffect, useState } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+function reducer(state, action) {
+  switch (action.type) {
+    case "INIT": {
+      return action.data;
+    }
+    case "CREATE": {
+      // return [action.data, ...state];
+      const newState = [action.data, ...state];
+      localStorage.setItem("diary", JSON.stringify(newState));
+      return newState;
+    }
+    case "UPDATE": {
+      // return state.map((it) => String(it.id) === String(action.data.id) ? {...action.data} : it);
+      const newState = state.map((it) => String(it.id) === String(action.data.id) ? {...action.data} : it);
+      localStorage.setItem("diary", JSON.stringify(newState));
+      return newState;
+    }
+    case "DELETE": {
+      // return state.filter((it) => String(it.id) !== String(action.targetId));
+      const newState = state.filter((it) => String(it.id) !== String(action.targetId));
+      localStorage.setItem("diary", JSON.stringify(newState));
+      return newState;
+    }
+    default: {
+      return state;
+    }
+  }
 }
 
-export default App
+// Props Drillng 방지 context 사용하기
+export const DiaryStateContext = React.createContext();
+export const DiaryDispatchContext = React.createContext();
+
+// 목데이터
+const mockData = [
+  {
+    id: "mock1",
+    date: new Date().getTime() - 1,
+    content: "mock1",
+    emotionId: 1,
+  },
+  {
+    id: "mock2",
+    date: new Date().getTime() - 2,
+    content: "mock2",
+    emotionId: 2,
+  },
+  {
+    id: "mock3",
+    date: new Date().getTime() - 3,
+    content: "mock3",
+    emotionId: 3,
+  },
+];
+
+function App() {
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+  const [data, dispatch] = useReducer(reducer, []);
+  const idRef = useRef(0);
+
+  useEffect(() => {
+    // dispatch({
+    //   type: "INIT",
+    //   data: mockData,
+    // });
+    // setIsDataLoaded(true);
+    // 이제 목데이터 대신 기존 내용 가져올거임
+    const rawData = localStorage.getItem("diary");
+    if (!rawData) {
+      setIsDataLoaded(true);
+      return;
+    }
+    const localData = JSON.parse(rawData);
+    if (localData.length === 0) {
+      setIsDataLoaded(true);
+      return;
+    }
+
+    localData.sort((a, b) => Number(b.id) - Number(a.id)); //내림차순
+    idRef.current = localData[0].id + 1; //기존 최대값 +1에서 새일기 시작
+
+    dispatch({type: "INIT", data: localData}); //초기값 설정
+    setIsDataLoaded(true);
+  }, []);
+
+  const onCreate = (date, content, emotionId) => { //추가
+    dispatch({
+      type: "CREATE",
+      data: {
+        id: idRef.current,
+        date: new Date(date).getTime(),
+        content,
+        emotionId,
+      },
+    });
+    idRef.current += 1;
+  };
+  const onUpdate = (targetId, date, content, emotionId) => { //수정
+    dispatch({
+      type: "UPDATE",
+      data: {
+        id: targetId,
+        date: new Date(date).getTime(),
+        content,
+        emotionId,
+      },
+    });
+  };
+  const onDelete = (targetId) => { //삭제
+    dispatch({
+      type: "DELETE",
+      targetId,
+    });
+  };
+
+  if (!isDataLoaded) {
+    return <div>데이터를 불러오는 중입니다</div>;
+  } else {
+    return (
+      <DiaryStateContext.Provider value={data}>
+        <DiaryDispatchContext.Provider value={{onCreate, onUpdate, onDelete}}>
+          <div className="App">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/new" element={<New />} />
+              <Route path="/diary/:id" element={<Diary />} />
+              <Route path="/edit/:id" element={<Edit />} />
+            </Routes>
+            {/* <div>
+              <Link to={"/"}>Home</Link>
+              <Link to={"/new"}>New</Link>
+              <Link to={"/diary"}>Diary</Link>
+              <Link to={"/edit"}>Edit</Link>
+            </div> */}
+          </div>
+        </DiaryDispatchContext.Provider>
+      </DiaryStateContext.Provider>
+    );
+  }
+}
+
+export default App;
+
