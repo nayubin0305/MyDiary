@@ -4,7 +4,7 @@ import New from './pages/New';
 import Diary from './pages/Diary';
 import Edit from './pages/Edit';
 import React, { useReducer, useRef, useEffect, useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -12,19 +12,16 @@ function reducer(state, action) {
       return action.data;
     }
     case "CREATE": {
-      // return [action.data, ...state];
       const newState = [action.data, ...state];
       localStorage.setItem("diary", JSON.stringify(newState));
       return newState;
     }
     case "UPDATE": {
-      // return state.map((it) => String(it.id) === String(action.data.id) ? {...action.data} : it);
       const newState = state.map((it) => String(it.id) === String(action.data.id) ? {...action.data} : it);
       localStorage.setItem("diary", JSON.stringify(newState));
       return newState;
     }
     case "DELETE": {
-      // return state.filter((it) => String(it.id) !== String(action.targetId));
       const newState = state.filter((it) => String(it.id) !== String(action.targetId));
       localStorage.setItem("diary", JSON.stringify(newState));
       return newState;
@@ -35,31 +32,9 @@ function reducer(state, action) {
   }
 }
 
-// Props Drillng 방지 context 사용하기
+// Props Drilling 방지 context 사용하기
 export const DiaryStateContext = React.createContext();
 export const DiaryDispatchContext = React.createContext();
-
-// 목데이터
-const mockData = [
-  {
-    id: "mock1",
-    date: new Date().getTime() - 1,
-    content: "mock1",
-    emotionId: 1,
-  },
-  {
-    id: "mock2",
-    date: new Date().getTime() - 2,
-    content: "mock2",
-    emotionId: 2,
-  },
-  {
-    id: "mock3",
-    date: new Date().getTime() - 3,
-    content: "mock3",
-    emotionId: 3,
-  },
-];
 
 function App() {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
@@ -68,12 +43,6 @@ function App() {
   const idRef = useRef(0);
 
   useEffect(() => {
-    // dispatch({
-    //   type: "INIT",
-    //   data: mockData,
-    // });
-    // setIsDataLoaded(true);
-    // 이제 목데이터 대신 기존 내용 가져올거임
     const rawData = localStorage.getItem("diary");
     if (!rawData) {
       setIsDataLoaded(true);
@@ -135,12 +104,6 @@ function App() {
               <Route path="/diary/:id" element={<Diary />} />
               <Route path="/edit/:id" element={<Edit />} />
             </Routes>
-            {/* <div>
-              <Link to={"/"}>Home</Link>
-              <Link to={"/new"}>New</Link>
-              <Link to={"/diary"}>Diary</Link>
-              <Link to={"/edit"}>Edit</Link>
-            </div> */}
           </div>
         </DiaryDispatchContext.Provider>
       </DiaryStateContext.Provider>
@@ -149,4 +112,3 @@ function App() {
 }
 
 export default App;
-
