@@ -12,7 +12,7 @@ const Home = () => {
 
     // 현재 달에 해당하는지
     useEffect(() => {
-        setPageTitle("감정 일기장 홈");
+        setPageTitle("감정 일기장 : 홈");
 
         if (data.length >= 1) {
             const {beginTimeStamp, endTimeStamp} = getMonthRangeByDate(pivotDate);
