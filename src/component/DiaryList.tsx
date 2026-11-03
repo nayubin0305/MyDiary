@@ -1,37 +1,42 @@
 import "./DiaryList.css";
-import Button from "./Button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, type ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "./Button";
 import DiaryItem from "./DiaryItem";
+import type { Diary } from "../types";
 
-const sortOptionList = [
+type SortType = "latest" | "oldest";
+
+const sortOptionList: { value: SortType; name: string }[] = [
     {value: "latest", name: "최신순"},
     {value: "oldest", name: "오래된 순"},
 ]
 
-const DiaryList = ({data}) => {
+interface DiaryListProps {
+    data: Diary[];
+}
+
+const DiaryList = ({data}: DiaryListProps) => {
     // 정렬
-    const [sortType, setSortType] = useState("latest"); //셀렉트박스
-    const [sorteData, setSorteData] = useState([]); //리스트
+    const [sortType, setSortType] = useState<SortType>("latest"); //셀렉트박스
+    const [sorteData, setSorteData] = useState<Diary[]>([]); //리스트
 
     useEffect(() => {
-        const compare = (a, b) => {
+        const compare = (a: Diary, b: Diary) => {
             if (sortType === "latest") {
                 return Number(b.date) - Number(a.date);
             } else {
                 return Number(a.date) - Number(b.date);
             }
         };
-        const copyList = JSON.parse(JSON.stringify(data));
+        const copyList: Diary[] = JSON.parse(JSON.stringify(data));
         copyList.sort(compare);
         setSorteData(copyList);
     }, [data, sortType]);
 
-    const onChangeSortType = (e) => {
-        setSortType(e.target.value);
+    const onChangeSortType = (e: ChangeEvent<HTMLSelectElement>) => {
+        setSortType(e.target.value as SortType);
     };
-
-
 
     // 링크이동
     const navigate = useNavigate();

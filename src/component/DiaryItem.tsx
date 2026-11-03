@@ -1,10 +1,11 @@
 import "./DiaryItem.css";
+import { memo } from "react"; // 최적화
 import { useNavigate } from "react-router-dom";
 import { getEmotionImgById } from "../util";
 import Button from "./Button";
-import React from "react"; // 최적화
+import type { Diary } from "../types";
 
-const DiaryItem = ({id, date, content, emotionId}) => {
+const DiaryItem = ({id, date, content, emotionId}: Diary) => {
     const navigate = useNavigate();
     const goDetail = () => {
         navigate(`/diary/${id}`);
@@ -16,11 +17,11 @@ const DiaryItem = ({id, date, content, emotionId}) => {
     return (
         <div className="DiaryItem">
             <div onClick={goDetail} className={["img_section", `img_section_${emotionId}`].join(" ")}>
-                <img src={getEmotionImgById(emotionId)} alt={`emotion${emotionId}`} />
+                <img src={getEmotionImgById(emotionId) ?? undefined} alt={`emotion${emotionId}`} />
             </div>
             <div onClick={goDetail} className="info_section">
                 <div className="date_wrapper">
-                    {new Date(parseInt(date)).toLocaleDateString()}
+                    {new Date(date).toLocaleDateString()}
                 </div>
                 <div className="content_wrapper">{content.slice(0,25)}</div>
             </div>
@@ -31,4 +32,4 @@ const DiaryItem = ({id, date, content, emotionId}) => {
     );
 };
 
-export default React.memo(DiaryItem);
+export default memo(DiaryItem);
