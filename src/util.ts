@@ -4,7 +4,7 @@ import emotion3 from "./img/emotion3.png";
 import emotion4 from "./img/emotion4.png";
 import emotion5 from "./img/emotion5.png";
 
-export const getEmotionImgById = (emotionId) => {
+export const getEmotionImgById = (emotionId: number | string): string | null => {
   const targetEmotionId = String(emotionId);
   switch (targetEmotionId) {
     case "1":
@@ -22,7 +22,13 @@ export const getEmotionImgById = (emotionId) => {
   } 
 }
 
-export const emotionList = [
+export interface Emotion {
+  id: number;
+  name: string;
+  img: string | null;
+}
+
+export const emotionList: Emotion[] = [
   {
     id: 1,
     name: "완전 좋음",
@@ -51,21 +57,15 @@ export const emotionList = [
 ];
 
 // 작성/수정 페이지 날짜 부분 yyyy-mm-dd
-export const getFormattedDate = (targetDate) => {
+export const getFormattedDate = (targetDate: Date): string => {
     let year = targetDate.getFullYear();
-    let month = targetDate.getMonth() + 1;
-    let date = targetDate.getDate();
-    if (month < 10) {
-        month = `0${month}`;
-    }
-    if (date < 10) {
-        date = `0${date}`;
-    }
+    let month = String(targetDate.getMonth() + 1).padStart(2, "0");
+    let date = String(targetDate.getDate()).padStart(2, "0");
     return `${year}-${month}-${date}`;
 };
 
 // Home 해당 월에 시작과 끝 계산
-export const getMonthRangeByDate = (date) => {
+export const getMonthRangeByDate = (date: Date): { beginTimeStamp: number; endTimeStamp: number } => {
   const beginTimeStamp = new Date(date.getFullYear(), date.getMonth(), 1).getTime();
   const endTimeStamp = new Date(
     date.getFullYear(),
@@ -79,7 +79,7 @@ export const getMonthRangeByDate = (date) => {
 };
 
 // 각 페이지명 설정
-export const setPageTitle = (title) => {
+export const setPageTitle = (title: string): void => {
   const titleElement = document.getElementsByTagName("title")[0];
   titleElement.innerText = title;
 };
