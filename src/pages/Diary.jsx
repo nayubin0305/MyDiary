@@ -13,7 +13,6 @@ const Diary = () => {
 
     const {id} = useParams();
     const data = useDiary(id);
-    // console.log(data);
     const navigate = useNavigate();
     const goBack = () => {
         navigate(-1);

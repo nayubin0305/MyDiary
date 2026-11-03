@@ -6,7 +6,6 @@ type ViewerProps = Pick<Diary, "content" | "emotionId">;
 
 const Viewer = ({content, emotionId}: ViewerProps) => {
     const emotionItem = emotionList.find((it) => it.id === emotionId);
-    console.log(emotionItem);
 
     if (!emotionItem) {
         return null;
