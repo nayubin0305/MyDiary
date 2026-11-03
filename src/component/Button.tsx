@@ -1,6 +1,13 @@
 import "./Button.css";
+import type { MouseEventHandler } from "react";
 
-const Button = ({text, type, onClick}) => {
+interface ButtonProps {
+    text: string;
+    type?: "positive" | "negative" | "default";
+    onClick?: MouseEventHandler<HTMLButtonElement>;
+}
+
+const Button = ({text, type = "default", onClick}: ButtonProps) => {
     const btnType = ["positive", "negative"].includes(type) ? type : "default";
 
     return (
@@ -9,9 +16,5 @@ const Button = ({text, type, onClick}) => {
         </button>
     );
 }
-Button.defaultProps = {
-    type: "default",
-};
-
 
 export default Button;
