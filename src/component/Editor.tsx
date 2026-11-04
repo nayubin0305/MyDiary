@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getFormattedDate, emotionList } from "../util";
 import Button from "./Button";
 import EmotionItem from "./EmotionItem";
-import type { Diary } from "../types";
+import type { DiaryType } from "../types";
 
 interface EditorState {
     date: string;
@@ -13,7 +13,7 @@ interface EditorState {
 }
 
 interface EditorProps {
-    initData?: Diary;
+    initData?: DiaryType;
     onSubmit: (data: EditorState) => void; // state를 부모에게 전달
 }
 

@@ -3,9 +3,9 @@ import { memo } from "react"; // 최적화
 import { useNavigate } from "react-router-dom";
 import { getEmotionImgById } from "../util";
 import Button from "./Button";
-import type { Diary } from "../types";
+import type { DiaryType } from "../types";
 
-const DiaryItem = ({id, date, content, emotionId}: Diary) => {
+const DiaryItem = ({id, date, content, emotionId}: DiaryType) => {
     const navigate = useNavigate();
     const goDetail = () => {
         navigate(`/diary/${id}`);

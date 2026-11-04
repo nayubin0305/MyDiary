@@ -1,8 +1,8 @@
 import "./Viewer.css";
-import type { Diary } from "../types";
+import type { DiaryType } from "../types";
 import { emotionList } from "../util";
 
-type ViewerProps = Pick<Diary, "content" | "emotionId">;
+type ViewerProps = Pick<DiaryType, "content" | "emotionId">;
 
 const Viewer = ({content, emotionId}: ViewerProps) => {
     const emotionItem = emotionList.find((it) => it.id === emotionId);

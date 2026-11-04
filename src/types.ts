@@ -1,4 +1,4 @@
-export interface Diary {
+export interface DiaryType {
   id: number;
   date: number;
   content: string;

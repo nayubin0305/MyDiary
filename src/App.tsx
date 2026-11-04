@@ -1,12 +1,25 @@
-import './App.css';
-import Home from './pages/Home';
-import New from './pages/New';
-import Diary from './pages/Diary';
-import Edit from './pages/Edit';
-import React, { useReducer, useRef, useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import "./App.css";
+import Home from "./pages/Home";
+import New from "./pages/New";
+import Diary from "./pages/Diary";
+import Edit from "./pages/Edit";
+import { createContext, useReducer, useRef, useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import type { DiaryType } from "./types";
 
-function reducer(state, action) {
+type Action =
+  | { type: "INIT"; data: DiaryType[] }
+  | { type: "CREATE"; data: DiaryType }
+  | { type: "UPDATE"; data: DiaryType }
+  | { type: "DELETE"; targetId: number };
+
+interface DiaryDispatch {
+  onCreate: (date: string, content: string, emotionId: number) => void;
+  onUpdate: (targetId: number, date: string , content: string, emotionId: number) => void;
+  onDelete: (targetId: number) => void;
+}
+
+function reducer(state: DiaryType[], action: Action): DiaryType[] {
   switch (action.type) {
     case "INIT": {
       return action.data;
@@ -33,8 +46,12 @@ function reducer(state, action) {
 }
 
 // Props Drilling 방지 context 사용하기
-export const DiaryStateContext = React.createContext();
-export const DiaryDispatchContext = React.createContext();
+export const DiaryStateContext = createContext<DiaryType[]>([]);
+export const DiaryDispatchContext = createContext<DiaryDispatch>({
+  onCreate: () => {}, 
+  onUpdate: () => {},
+  onDelete: () => {},
+});
 
 function App() {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
@@ -48,20 +65,20 @@ function App() {
       setIsDataLoaded(true);
       return;
     }
-    const localData = JSON.parse(rawData);
+    const localData: DiaryType[] = JSON.parse(rawData);
     if (localData.length === 0) {
       setIsDataLoaded(true);
       return;
     }
 
     localData.sort((a, b) => Number(b.id) - Number(a.id)); //내림차순
-    idRef.current = localData[0].id + 1; //기존 최대값 +1에서 새일기 시작
+    idRef.current = Number(localData[0].id) + 1; //기존 최대값 +1에서 새일기 시작
 
     dispatch({type: "INIT", data: localData}); //초기값 설정
     setIsDataLoaded(true);
   }, []);
 
-  const onCreate = (date, content, emotionId) => { //추가
+  const onCreate: DiaryDispatch["onCreate"] = (date, content, emotionId) => { //추가
     dispatch({
       type: "CREATE",
       data: {
@@ -73,7 +90,7 @@ function App() {
     });
     idRef.current += 1;
   };
-  const onUpdate = (targetId, date, content, emotionId) => { //수정
+  const onUpdate: DiaryDispatch["onUpdate"] = (targetId, date, content, emotionId) => { //수정
     dispatch({
       type: "UPDATE",
       data: {
@@ -84,7 +101,7 @@ function App() {
       },
     });
   };
-  const onDelete = (targetId) => { //삭제
+  const onDelete: DiaryDispatch["onDelete"] = (targetId) => { //삭제
     dispatch({
       type: "DELETE",
       targetId,

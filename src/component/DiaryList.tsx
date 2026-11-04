@@ -3,7 +3,7 @@ import { useState, useEffect, type ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import DiaryItem from "./DiaryItem";
-import type { Diary } from "../types";
+import type { DiaryType } from "../types";
 
 type SortType = "latest" | "oldest";
 
@@ -13,23 +13,23 @@ const sortOptionList: { value: SortType; name: string }[] = [
 ]
 
 interface DiaryListProps {
-    data: Diary[];
+    data: DiaryType[];
 }
 
 const DiaryList = ({data}: DiaryListProps) => {
     // 정렬
     const [sortType, setSortType] = useState<SortType>("latest"); //셀렉트박스
-    const [sorteData, setSorteData] = useState<Diary[]>([]); //리스트
+    const [sorteData, setSorteData] = useState<DiaryType[]>([]); //리스트
 
     useEffect(() => {
-        const compare = (a: Diary, b: Diary) => {
+        const compare = (a: DiaryType, b: DiaryType) => {
             if (sortType === "latest") {
                 return Number(b.date) - Number(a.date);
             } else {
                 return Number(a.date) - Number(b.date);
             }
         };
-        const copyList: Diary[] = JSON.parse(JSON.stringify(data));
+        const copyList: DiaryType[] = JSON.parse(JSON.stringify(data));
         copyList.sort(compare);
         setSorteData(copyList);
     }, [data, sortType]);
