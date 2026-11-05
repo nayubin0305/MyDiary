@@ -8,8 +8,6 @@
     "allowArbitraryExtensions": true,
     "skipLibCheck": true,
 
-    "allowJs": true, // 전환 설정 (추후 삭제)
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
