@@ -1,15 +1,14 @@
 import { useContext, useState, useEffect } from "react";
-import { DiaryStateContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import { DiaryStateContext } from "../App";
+import type { DiaryType } from "../types";
 
-const useDiary = (id) => {
+const useDiary = (id: string | undefined) => {
     const data = useContext(DiaryStateContext); // 데이터 가져오기
-    const [diary, setDiary] = useState(); // 저장할 공간 확보
+    const [diary, setDiary] = useState<DiaryType>(); // 저장할 공간 확보
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (data.length === 0) return; // 따로 추가, 삭제 후 알럿 안 뜨게
-
         const matchDiary = data.find((it) => String(it.id) === String(id));
         if (matchDiary) { // id가 일치하면 저장
             setDiary(matchDiary);
