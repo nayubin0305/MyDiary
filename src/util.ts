@@ -58,9 +58,9 @@ export const emotionList: Emotion[] = [
 
 // 작성/수정 페이지 날짜 부분 yyyy-mm-dd
 export const getFormattedDate = (targetDate: Date): string => {
-    let year = targetDate.getFullYear();
-    let month = String(targetDate.getMonth() + 1).padStart(2, "0");
-    let date = String(targetDate.getDate()).padStart(2, "0");
+    const year = targetDate.getFullYear();
+    const month = String(targetDate.getMonth() + 1).padStart(2, "0");
+    const date = String(targetDate.getDate()).padStart(2, "0");
     return `${year}-${month}-${date}`;
 };
 
