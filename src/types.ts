@@ -1,6 +1,6 @@
 export interface DiaryType { // 저장된 일기
   id: number;
-  date: number;
+  date: number; // .getTime()
   content: string;
   emotionId: number;
 }

@@ -8,13 +8,13 @@ import { setPageTitle } from "../util";
 import type { EditorState } from "../types";
 
 const New = () => {
+    const {onCreate} = useContext(DiaryDispatchContext);
+    const navigate = useNavigate();
+
     useEffect(() => {
         setPageTitle("감정 일기장 : 새 일기 쓰기");
     }, []);
 
-    const {onCreate} = useContext(DiaryDispatchContext);
-
-    const navigate = useNavigate();
     const goBack = () => {
         navigate(-1);
     };
