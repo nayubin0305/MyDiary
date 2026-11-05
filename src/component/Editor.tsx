@@ -4,13 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getFormattedDate, emotionList } from "../util";
 import Button from "./Button";
 import EmotionItem from "./EmotionItem";
-import type { DiaryType } from "../types";
-
-interface EditorState {
-    date: string;
-    emotionId : number;
-    content: string;
-}
+import type { DiaryType, EditorState } from "../types";
 
 interface EditorProps {
     initData?: DiaryType;

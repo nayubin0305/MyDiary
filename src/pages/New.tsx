@@ -1,10 +1,11 @@
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../component/Header";
 import Button from "../component/Button";
-import { useNavigate } from "react-router-dom";
 import Editor from "../component/Editor";
-import { useContext, useEffect } from "react";
 import { DiaryDispatchContext } from "../App";
 import { setPageTitle } from "../util";
+import type { EditorState } from "../types";
 
 const New = () => {
     useEffect(() => {
@@ -17,7 +18,7 @@ const New = () => {
     const goBack = () => {
         navigate(-1);
     };
-    const onSubmit = (data) => {
+    const onSubmit = (data: EditorState) => {
         const {date, content, emotionId} = data;
         onCreate(date, content, emotionId);
         navigate("/", {replace: true});
