@@ -15,6 +15,6 @@ const Button = ({text, type = "default", onClick}: ButtonProps) => {
             {text}
         </button>
     );
-}
+};
 
 export default Button;

@@ -34,6 +34,6 @@ const Diary = () => {
             </div>
         );
     }
-}
+};
 
 export default Diary;

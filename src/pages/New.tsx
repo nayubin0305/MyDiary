@@ -30,6 +30,6 @@ const New = () => {
             <Editor onSubmit={onSubmit} />
         </div>
     );
-}
+};
 
 export default New;
