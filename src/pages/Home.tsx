@@ -1,32 +1,26 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useMemo } from "react";
 import Header from "../component/Header";
 import Button from "../component/Button";
 import DiaryList from "../component/DiaryList";
 import { DiaryStateContext } from "../App";
 import { getMonthRangeByDate, setPageTitle } from "../util";
-import type { DiaryType } from "../types";
 
 const Home = () => {
     const data = useContext(DiaryStateContext);
     const [pivotDate, setPivotDate] = useState(new Date());
-    const [filteredData, setFilteredData] = useState<DiaryType[]>([]);
 
-    // 현재 달에 해당하는지
     useEffect(() => {
         setPageTitle("감정 일기장 : 홈");
+    }, []);
 
-        if (data.length >= 1) {
-            const {beginTimeStamp, endTimeStamp} = getMonthRangeByDate(pivotDate);
-            setFilteredData(
-                data.filter((it) => beginTimeStamp <= it.date && it.date <= endTimeStamp)
-            );
-        } else {
-            setFilteredData([]);
-        }
+    // 현재 달에 해당하는 일기만 노출
+    const filteredData = useMemo(() => {
+        const {beginTimeStamp, endTimeStamp} = getMonthRangeByDate(pivotDate);
+        return  data.filter((it) => beginTimeStamp <= it.date && it.date <= endTimeStamp);
     }, [data, pivotDate]);
 
     // 월 이동
-    const headerTitle = `${pivotDate.getFullYear()}년 ${pivotDate.getMonth() + 1}월`
+    const headerTitle = `${pivotDate.getFullYear()}년 ${pivotDate.getMonth() + 1}월`;
 
     const onIncreaseMonth = () => {
         setPivotDate(new Date(pivotDate.getFullYear(), pivotDate.getMonth() + 1));
