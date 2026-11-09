@@ -3,22 +3,18 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Diary from "./pages/Diary";
 import Edit from "./pages/Edit";
-import { useReducer, useRef, useEffect, useState } from "react";
+import { useReducer, useRef } from "react";
 import { Routes, Route } from "react-router-dom";
 import type { DiaryType } from "./types";
 import { DiaryStateContext, DiaryDispatchContext, type DiaryDispatch } from "./context/DiaryContext";
 
 type Action =
-  | { type: "INIT"; data: DiaryType[] }
   | { type: "CREATE"; data: DiaryType }
   | { type: "UPDATE"; data: DiaryType }
   | { type: "DELETE"; targetId: number };
 
 function reducer(state: DiaryType[], action: Action): DiaryType[] {
   switch (action.type) {
-    case "INIT": {
-      return action.data;
-    }
     case "CREATE": {
       const newState = [action.data, ...state];
       localStorage.setItem("diary", JSON.stringify(newState));
@@ -40,30 +36,23 @@ function reducer(state: DiaryType[], action: Action): DiaryType[] {
   }
 }
 
-function App() {
-  const [isDataLoaded, setIsDataLoaded] = useState(false);
-
-  const [data, dispatch] = useReducer(reducer, []);
-  const idRef = useRef(0);
-
-  useEffect(() => {
-    const rawData = localStorage.getItem("diary");
-    if (!rawData) {
-      setIsDataLoaded(true);
-      return;
-    }
+// 저장된 일기 가져오기
+function loadDiaries(key: string): DiaryType[]{
+  const rawData = localStorage.getItem(key);
+  if(!rawData) {
+    return [];
+  }
+  try {
     const localData: DiaryType[] = JSON.parse(rawData);
-    if (localData.length === 0) {
-      setIsDataLoaded(true);
-      return;
-    }
+    return localData.sort((a,b) => Number(b.id) - Number(a.id)); // id 내림차순
+  } catch {
+    return [];
+  }
+}
 
-    localData.sort((a, b) => Number(b.id) - Number(a.id)); //내림차순
-    idRef.current = Number(localData[0].id) + 1; //기존 최대값 +1에서 새일기 시작
-
-    dispatch({type: "INIT", data: localData}); //초기값 설정
-    setIsDataLoaded(true);
-  }, []);
+function App() {
+  const [data, dispatch] = useReducer(reducer, "diary", loadDiaries);
+  const idRef = useRef(data.length > 0 ? Number(data[0].id) + 1 : 1); //기존 최대값 +1에서 새일기 시작
 
   const onCreate: DiaryDispatch["onCreate"] = (date, content, emotionId) => { //추가
     dispatch({
@@ -95,24 +84,20 @@ function App() {
     });
   };
 
-  if (!isDataLoaded) {
-    return <div>데이터를 불러오는 중입니다</div>;
-  } else {
-    return (
-      <DiaryStateContext.Provider value={data}>
-        <DiaryDispatchContext.Provider value={{onCreate, onUpdate, onDelete}}>
-          <div className="App">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/new" element={<New />} />
-              <Route path="/diary/:id" element={<Diary />} />
-              <Route path="/edit/:id" element={<Edit />} />
-            </Routes>
-          </div>
-        </DiaryDispatchContext.Provider>
-      </DiaryStateContext.Provider>
-    );
-  }
+  return (
+    <DiaryStateContext.Provider value={data}>
+      <DiaryDispatchContext.Provider value={{onCreate, onUpdate, onDelete}}>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/new" element={<New />} />
+            <Route path="/diary/:id" element={<Diary />} />
+            <Route path="/edit/:id" element={<Edit />} />
+          </Routes>
+        </div>
+      </DiaryDispatchContext.Provider>
+    </DiaryStateContext.Provider>
+  );
 }
 
 export default App;
