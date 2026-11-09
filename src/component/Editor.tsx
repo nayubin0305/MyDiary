@@ -1,5 +1,5 @@
 import "./Editor.css";
-import { useState, useEffect, useCallback, type ChangeEvent } from "react";
+import { useState, useCallback, type ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { getFormattedDate, emotionList } from "../util";
 import Button from "./Button";
@@ -14,10 +14,23 @@ interface EditorProps {
 const Editor = ({initData, onSubmit}: EditorProps) => {
     const navigate = useNavigate();
 
-    const [state, setState] = useState({
-        date: getFormattedDate(new Date()),
-        emotionId: 3,
-        content: "",
+    // 초기값
+    const [state, setState] = useState<EditorState>(() => {
+        if(initData) {
+            // 수정 모드
+            return {
+                date: getFormattedDate(new Date(initData.date)),
+                content: initData.content,
+                emotionId: initData.emotionId,
+            };
+        } else {
+            // 새 일기
+            return {
+                date: getFormattedDate(new Date()),
+                content: "",
+                emotionId: 3,
+            };
+        }
     });
 
     const handleChangeDate = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,15 +57,6 @@ const Editor = ({initData, onSubmit}: EditorProps) => {
             emotionId,
         }));
     }, []);
-
-    useEffect(() => {
-        if(initData) {
-            setState({
-                ...initData,
-                date: getFormattedDate(new Date(initData.date)),
-            });
-        }
-    }, [initData]);
 
     return (
         <div className="Editor">

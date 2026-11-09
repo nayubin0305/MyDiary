@@ -43,7 +43,7 @@ const Edit = () => {
         return (
             <div>
                 <Header title={"일기 수정하기"} leftChild={<Button text={"< 뒤로 가기"} onClick={goBack} />} rightChild={<Button text={"삭제하기"} type={"negative"} onClick={onClickDelete}/>}/>
-                <Editor initData={data} onSubmit={onSubmit}/>
+                <Editor key={data.id} initData={data} onSubmit={onSubmit}/>
             </div>
         );
     }
