@@ -4,6 +4,7 @@ import useDiary from "../hooks/useDiary";
 import Header from "../component/Header";
 import Button from "../component/Button";
 import Viewer from "../component/Viewer";
+import NotFound from "../component/NotFound";
 import { getFormattedDate, setPageTitle } from "../util";
 
 const Diary = () => {
@@ -23,7 +24,7 @@ const Diary = () => {
     };
 
     if (!data){
-        return <div>일기를 불러오고 있습니다...</div>
+        return <NotFound />;
     } else {
         const {date, emotionId, content} = data;
         const title = `${getFormattedDate(new Date(date))} 기록`;

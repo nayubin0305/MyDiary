@@ -4,6 +4,7 @@ import useDiary from "../hooks/useDiary";
 import Header from "../component/Header";
 import Button from "../component/Button";
 import Editor from "../component/Editor";
+import NotFound from "../component/NotFound";
 import { DiaryDispatchContext } from "../App";
 import { setPageTitle } from "../util";
 import type { EditorState } from "../types";
@@ -37,7 +38,7 @@ const Edit = () => {
     };
 
     if(!data) {
-        return <div>일기를 불러오고 있습니다...</div>;
+        return <NotFound />;
     } else {
         return (
             <div>
