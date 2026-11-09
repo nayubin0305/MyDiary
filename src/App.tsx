@@ -3,21 +3,16 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Diary from "./pages/Diary";
 import Edit from "./pages/Edit";
-import { createContext, useReducer, useRef, useEffect, useState } from "react";
+import { useReducer, useRef, useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import type { DiaryType } from "./types";
+import { DiaryStateContext, DiaryDispatchContext, type DiaryDispatch } from "./context/DiaryContext";
 
 type Action =
   | { type: "INIT"; data: DiaryType[] }
   | { type: "CREATE"; data: DiaryType }
   | { type: "UPDATE"; data: DiaryType }
   | { type: "DELETE"; targetId: number };
-
-interface DiaryDispatch {
-  onCreate: (date: string, content: string, emotionId: number) => void;
-  onUpdate: (targetId: number, date: string , content: string, emotionId: number) => void;
-  onDelete: (targetId: number) => void;
-}
 
 function reducer(state: DiaryType[], action: Action): DiaryType[] {
   switch (action.type) {
@@ -44,14 +39,6 @@ function reducer(state: DiaryType[], action: Action): DiaryType[] {
     }
   }
 }
-
-// Props Drilling 방지 context 사용하기
-export const DiaryStateContext = createContext<DiaryType[]>([]);
-export const DiaryDispatchContext = createContext<DiaryDispatch>({
-  onCreate: () => {}, 
-  onUpdate: () => {},
-  onDelete: () => {},
-});
 
 function App() {
   const [isDataLoaded, setIsDataLoaded] = useState(false);

@@ -2,7 +2,7 @@ import { useState, useContext, useEffect, useMemo } from "react";
 import Header from "../component/Header";
 import Button from "../component/Button";
 import DiaryList from "../component/DiaryList";
-import { DiaryStateContext } from "../App";
+import { DiaryStateContext } from "../context/DiaryContext";
 import { getMonthRangeByDate, setPageTitle } from "../util";
 
 const Home = () => {

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../component/Header";
 import Button from "../component/Button";
 import Editor from "../component/Editor";
-import { DiaryDispatchContext } from "../App";
+import { DiaryDispatchContext } from "../context/DiaryContext";
 import { setPageTitle } from "../util";
 import type { EditorState } from "../types";
 

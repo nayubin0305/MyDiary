@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { DiaryStateContext } from "../App";
+import { DiaryStateContext } from "../context/DiaryContext";
 
 const useDiary = (id: string | undefined) => {
     const data = useContext(DiaryStateContext); // 일기 데이터 가져오기
