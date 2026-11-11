@@ -2,7 +2,7 @@
     padding: 20px 0;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #e2e2e2;
+    border-bottom: 1px solid var(--border);
 }
 .Header > div {
     display: flex;

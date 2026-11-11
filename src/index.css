@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Yeon+Sung&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap');
 
 :root {
   /* 낮 하늘 */
@@ -11,17 +12,26 @@
   --bg-control-hover: #d3e7f6;
   --accent: #8ec5f0;
   --accent-text: #1f3a52;
-  --negative: #f4b0b0;
+  --negative: #f5caca;
   --negative-text: #5a2a2a;
   --shadow: rgba(120, 160, 200, 0.25);
   --toggle-track: #bfe3ff;
   --toggle-thumb: #ffd966;
+  --error: #d9534f;
+
+  /* 감정 5단계 (라이트/다크 공통) */
+  --emotion-1: #a0aceb;
+  --emotion-2: #C5D9A7;
+  --emotion-3: #f5eaa8;
+  --emotion-4: #f1c39e;
+  --emotion-5: #fdb6b6;
+  --emotion-on-text: #17233a;
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
   /* 밤 하늘 */
-  --bg-page: #0e1626;
+  --bg-page: #090c11;
   --bg-card: #17233a;
   --text: #e6eefb;
   --text-sub: #93a6c3;
@@ -35,11 +45,13 @@
   --shadow: rgba(0, 0, 0, 0.5);
   --toggle-track: #2b3a67;
   --toggle-thumb: #e8ecff;
+  --error: #ff8a8a;
 }
 
 html,
 body {
-  font-family: "Nanum Pen Script";
+  font-family: "Gamja Flower", sans-serif;
+  /* font-family: "Nanum Pen Script"; */
   /* font-family: "Yeon Sung"; */
   color: var(--text);
   background-color: var(--bg-page);

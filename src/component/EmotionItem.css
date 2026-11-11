@@ -15,25 +15,25 @@
     font-size: 18px;
 }
 .EmotionItem_off{
-    background-color: #ececec;
+    background-color: var(--bg-control);
 }
 .EmotionItem_on_1{
-    background-color: #64c964;
-    color: #ffffff;
+    background-color: var(--emotion-1);
+    color: var(--emotion-on-text);
 }
 .EmotionItem_on_2{
-    background-color: #9dd772;
-    color: #ffffff;
+    background-color: var(--emotion-2);
+    color: var(--emotion-on-text);
 }
 .EmotionItem_on_3{
-    background-color: #fdce17;
-    color: #ffffff;
+    background-color: var(--emotion-3);
+    color: var(--emotion-on-text);
 }
 .EmotionItem_on_4{
-    background-color: #fd8446;
-    color: #ffffff;
+    background-color: var(--emotion-4);
+    color: var(--emotion-on-text);
 }
 .EmotionItem_on_5{
-    background-color: #fd565f;
-    color: #ffffff;
+    background-color: var(--emotion-5);
+    color: var(--emotion-on-text);
 }

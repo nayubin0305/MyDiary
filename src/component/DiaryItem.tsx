@@ -23,7 +23,7 @@ const DiaryItem = ({id, date, content, emotionId}: DiaryType) => {
                 <div className="date_wrapper">
                     {new Date(date).toLocaleDateString()}
                 </div>
-                <div className="content_wrapper">{content.slice(0,25)}</div>
+                <div className="content_wrapper">{content.slice(0,80)}</div>
             </div>
             <div className="button_section">
                 <Button onClick={goEdit} text={"수정하기"} />
