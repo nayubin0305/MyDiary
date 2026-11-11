@@ -14,9 +14,10 @@ const sortOptionList: { value: SortType; name: string }[] = [
 
 interface DiaryListProps {
     data: DiaryType[];
+    emptyMessage?: string;
 }
 
-const DiaryList = ({data}: DiaryListProps) => {
+const DiaryList = ({data, emptyMessage = "작성된 일기가 없습니다."}: DiaryListProps) => {
     // 정렬 기준
     const [sortType, setSortType] = useState<SortType>("latest"); // 사용자가 조작하는 셀렉트박스
 
@@ -58,9 +59,13 @@ const DiaryList = ({data}: DiaryListProps) => {
                 </div>
             </div>
             <div className="list_wrapper">
-                {sortedData.map((it) => (
-                    <DiaryItem key={it.id} {...it}/>
-                ))}
+                {sortedData.length === 0 ? (
+                    <p className="noneData">{emptyMessage}</p>
+                ) : (                    
+                    sortedData.map((it) => (
+                        <DiaryItem key={it.id} {...it}/>
+                    ))
+                )}
             </div>
         </div>
     );

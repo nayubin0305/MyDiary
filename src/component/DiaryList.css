@@ -20,3 +20,9 @@
 .DiaryList .right_col button{
     width: 100%;
 }
+.DiaryList .noneData{
+    font-size: 20px;
+    text-align: center;
+    margin: 50px 0;
+    color: #888;
+}
