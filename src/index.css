@@ -1,12 +1,50 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Yeon+Sung&display=swap');
 
+:root {
+  /* 낮 하늘 */
+  --bg-page: #eaf4fc;
+  --bg-card: #fcfeff;
+  --text: #33475b;
+  --text-sub: #7d92a6;
+  --border: #d9e8f5;
+  --bg-control: #e3f0fa;
+  --bg-control-hover: #d3e7f6;
+  --accent: #8ec5f0;
+  --accent-text: #1f3a52;
+  --negative: #f4b0b0;
+  --negative-text: #5a2a2a;
+  --shadow: rgba(120, 160, 200, 0.25);
+  --toggle-track: #bfe3ff;
+  --toggle-thumb: #ffd966;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  /* 밤 하늘 */
+  --bg-page: #0e1626;
+  --bg-card: #17233a;
+  --text: #e6eefb;
+  --text-sub: #93a6c3;
+  --border: #2a3a58;
+  --bg-control: #223250;
+  --bg-control-hover: #2c4066;
+  --accent: #6fb1e6;
+  --accent-text: #0e1a2b;
+  --negative: #e59a9a;
+  --negative-text: #2a1414;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --toggle-track: #2b3a67;
+  --toggle-thumb: #e8ecff;
+}
+
 html,
 body {
   font-family: "Nanum Pen Script";
   /* font-family: "Yeon Sung"; */
+  color: var(--text);
+  background-color: var(--bg-page);
   margin: 0;
   width: 100%;
-  background-color: #f6f6f6;
   display: flex;
   justify-content: center;
 }
@@ -21,6 +59,14 @@ body{
   width: 100%;
   min-height: 100vh;
   height: 100%;
-  background-color: #ffffff;
-  box-shadow: rgba(100,100,100,0.2) 0px 7px 29px 0px;
+  background-color: var(--bg-card);
+  box-shadow: var(--shadow) 0px 7px 29px 0px;
+}
+
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+  color: inherit;
 }
