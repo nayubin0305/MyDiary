@@ -1,0 +1,12 @@
+.BottomBar {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: var(--bg-card);
+    border-top: 1px solid var(--border);
+}

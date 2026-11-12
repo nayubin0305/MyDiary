@@ -8,6 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import type { DiaryType } from "./types";
 import { DiaryStateContext, DiaryDispatchContext, type DiaryDispatch } from "./context/DiaryContext";
 import { ThemeContext, type Theme } from "./context/ThemeContext";
+import BottomBar from "./component/BottomBar";
 
 const STORAGE_KEY = "diary";
 const THEME_KEY = "theme";
@@ -123,6 +124,7 @@ function App() {
               <Route path="/diary/:id" element={<Diary />} />
               <Route path="/edit/:id" element={<Edit />} />
             </Routes>
+            <BottomBar/>
           </div>
         </DiaryDispatchContext.Provider>
       </DiaryStateContext.Provider>

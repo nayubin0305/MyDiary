@@ -5,7 +5,6 @@ import DiaryList from "../component/DiaryList";
 import SearchBar from "../component/SearchBar";
 import { DiaryStateContext } from "../context/DiaryContext";
 import { getMonthRangeByDate, setPageTitle } from "../util";
-import ThemeToggle from "../component/ThemeToggle";
 
 const Home = () => {
     const data = useContext(DiaryStateContext);
@@ -63,9 +62,6 @@ const Home = () => {
             {isSearching && (<p className="search_info">전체 기간에서 검색 : {filteredData.length}건</p>)}
             <div>
                 <DiaryList data={filteredData} emptyMessage={emptyMessage} />
-            </div>
-            <div className="theme_row">
-                <ThemeToggle />
             </div>
         </div>
     );
