@@ -6,6 +6,7 @@ import SearchBar from "../component/SearchBar";
 import { DiaryStateContext } from "../context/DiaryContext";
 import { getMonthRangeByDate, setPageTitle } from "../util";
 
+
 const Home = () => {
     const data = useContext(DiaryStateContext);
     const [pivotDate, setPivotDate] = useState(new Date());

@@ -1,3 +1,4 @@
+import type { DiaryType } from "./types";
 import emotion1 from "./img/emotion1.png";
 import emotion2 from "./img/emotion2.png";
 import emotion3 from "./img/emotion3.png";
@@ -82,4 +83,18 @@ export const getMonthRangeByDate = (date: Date): { beginTimeStamp: number; endTi
 export const setPageTitle = (title: string): void => {
   const titleElement = document.getElementsByTagName("title")[0];
   titleElement.innerText = title;
+};
+
+// 감정별 개수 함수
+export const countByEmotion = (diaries: DiaryType[]): Record<number, number> => {
+  const counts: Record<number, number> = {};
+  for (const e of emotionList) {
+    counts[e.id] = 0 ;
+  }
+  for (const it of diaries) {
+    if (it.emotionId in counts) {
+      counts[it.emotionId] += 1;
+    }
+  }
+  return counts;
 };
