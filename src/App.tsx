@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Diary from "./pages/Diary";
 import Edit from "./pages/Edit";
+import Stats from "./pages/Stats";
 import { useReducer, useRef, useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import type { DiaryType } from "./types";
@@ -123,6 +124,7 @@ function App() {
               <Route path="/new" element={<New />} />
               <Route path="/diary/:id" element={<Diary />} />
               <Route path="/edit/:id" element={<Edit />} />
+              <Route path="/Stats" element={<Stats />}/>
             </Routes>
             <BottomBar/>
           </div>
