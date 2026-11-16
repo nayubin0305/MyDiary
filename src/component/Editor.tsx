@@ -82,26 +82,26 @@ const Editor = ({initData, onSubmit}: EditorProps) => {
     return (
         <div className="Editor">
             <div className="editor_section">
-                <h4>오늘의 날짜</h4>
+                <h4 id="date-title">오늘의 날짜</h4>
                 <div className="input_wrapper">
-                    <input type="date" value={state.date} onChange={handleChangeDate}/>
+                    <input type="date" name="date" aria-labelledby="date-title" value={state.date} onChange={handleChangeDate}/>
                 </div>
                 {errors.date && <p className="error_message">{errors.date}</p>}
             </div>
             <div className="editor_section">
-                <h4>오늘의 감정</h4>
-                <div className="input_wrapper emotion_list_wrapper">
+                <h4 id="emotion-title">오늘의 감정</h4>
+                <div className="input_wrapper emotion_list_wrapper" role="group" aria-labelledby="date-title">
                     {emotionList.map((it) => (
                         <EmotionItem key={it.id} {...it} onClick={handleChangeEmotion} isSelected={state.emotionId === it.id}/>
                     ))}
                 </div>
             </div>
             <div className="editor_section">
-                <h4>오늘의 일기</h4>
+                <h4 id="content-title">오늘의 일기</h4>
                 <div className="input_wrapper">
-                    <textarea placeholder="오늘은 어땠나요?" value={state.content} onChange={handleChangeContent}/>
+                    <textarea name="content" aria-labelledby="date-title" placeholder="오늘은 어땠나요?" value={state.content} onChange={handleChangeContent}/>
                 </div>
-                {errors.content && <p className="error_message">{errors.content}</p>}
+                {errors.content && <p className="error_message" role="alert">{errors.content}</p>}
             </div>
             <div className="editor_section bottom_section">
                 <Button text={"취소하기"} onClick={handleOnGoBack}/>

@@ -16,6 +16,9 @@
     padding: 10px 20px;
     cursor: pointer;
 }
+.Editor input[type="date"] {
+    color: var(--text);
+}
 .Editor textarea{
     padding: 20px;
     width: 100%;
