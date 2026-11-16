@@ -9,6 +9,18 @@
     <title>감정 일기장</title>
     <meta property="og:title" content="감정 일기장" />
     <meta property="og:description" content="나만의 작은 감정 일기장" />
+    <script>
+      try {
+        const saved = localStorage.getItem("theme");
+        const theme = 
+          saved === "light" || saved === "dark"
+          ? saved : window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+      } catch (e) {
+        // 그냥 넘기기
+      }
+    </script>
   </head>
   <body>
     <noscript>이 앱을 사용하려면 JavaScript 설정을 켜 주세요.</noscript>
