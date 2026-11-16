@@ -59,14 +59,14 @@ const DiaryList = ({data, emptyMessage = "작성된 일기가 없습니다."}: D
         <div className="DiaryList">
             <div className="menu_wrapper">
                 <div className="left_col">
-                    <select name="sortType" value={sortType} onChange={onChangeSortType}>
+                    <select name="sortType" aria-label="정렬 기준" value={sortType} onChange={onChangeSortType}>
                         {sortOptionList.map((it) => (
                             <option key={it.value} value={it.value} >
                                 {it.name}
                             </option>
                         ))}
                     </select>
-                    <select name="emotionFilter" value={emotionFilter} onChange={onChangeEmotionFilter}>
+                    <select name="emotionFilter" aria-label="감정 필터" value={emotionFilter} onChange={onChangeEmotionFilter}>
                         <option value="all">전체 감정</option>
                         {emotionList.map((it) => (
                             <option key={it.id} value={it.id}>
