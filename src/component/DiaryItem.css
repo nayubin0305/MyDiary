@@ -35,6 +35,8 @@
     min-width: 0;
     margin-left: 20px;
     padding-right: 20px;
+    color: inherit;
+    text-decoration: none;
     cursor: pointer;
 }
 .DiaryItem .info_section .date_wrapper{
