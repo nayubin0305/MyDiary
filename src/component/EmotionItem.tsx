@@ -12,10 +12,11 @@ const EmotionItem = ({id, img, name, onClick, isSelected}: EmotionItemProps) => 
         onClick(id);
     };
     return (
-        <div className={["EmotionItem", isSelected ? `EmotionItem_on_${id}` : `EmotionItem_off`].join(" ")} onClick={handleOnClick}>
+        <label className={["EmotionItem", isSelected ? `EmotionItem_on_${id}` : `EmotionItem_off`].join(" ")}>
+            <input type="radio" name="emotion" value={id} checked={isSelected} onClick={handleOnClick} />
             <img alt={`emotion${id}`} src={img ?? undefined}/>
             <span>{name}</span>
-        </div>
+        </label>
     );
 };
 

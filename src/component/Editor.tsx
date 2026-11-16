@@ -90,7 +90,7 @@ const Editor = ({initData, onSubmit}: EditorProps) => {
             </div>
             <div className="editor_section">
                 <h4 id="emotion-title">오늘의 감정</h4>
-                <div className="input_wrapper emotion_list_wrapper" role="group" aria-labelledby="date-title">
+                <div className="input_wrapper emotion_list_wrapper" role="radiogroup" aria-labelledby="date-title">
                     {emotionList.map((it) => (
                         <EmotionItem key={it.id} {...it} onClick={handleChangeEmotion} isSelected={state.emotionId === it.id}/>
                     ))}

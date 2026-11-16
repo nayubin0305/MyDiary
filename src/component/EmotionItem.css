@@ -1,4 +1,5 @@
 .EmotionItem{
+    position: relative;
     cursor: pointer;
     border-radius: 5px;
     padding: 20px;
@@ -12,7 +13,7 @@
     margin-bottom: 10px;
 }
 .EmotionItem span{
-    font-size: 18px;
+    font-size: 16px;
 }
 .EmotionItem_off{
     background-color: var(--bg-control);
@@ -36,4 +37,14 @@
 .EmotionItem_on_5{
     background-color: var(--emotion-5);
     color: var(--emotion-on-text);
+}
+.EmotionItem input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.EmotionItem:has(input:focus-visible) {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
 }
