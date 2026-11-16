@@ -98,3 +98,38 @@ export const countByEmotion = (diaries: DiaryType[]): Record<number, number> => 
   }
   return counts;
 };
+
+// yyyy-mm
+export const getMonthKey = (timestamp: number): string => {
+  const d = new Date(timestamp);
+  return `${d.getFullYear()}-${d.getMonth() + 1}`;
+};
+
+// 월별 개수 함수
+export const countByMonth = (diaries: DiaryType[]): Record<string, number> => {
+  const counts: Record<string, number> = {};
+  for (const it of diaries) {
+    counts[getMonthKey(it.date)] = 0;
+  }
+  for (const it of diaries) {
+    counts[getMonthKey(it.date)] += 1;
+  }
+  return counts;
+};
+
+export interface MonthItem {
+  key: string;
+  label: string;
+}
+
+export const getRecentMonths = (base: Date, count: number): MonthItem[] => {
+  const months: MonthItem[] = [];
+  for (let i = count - 1; i >= 0; i--) {
+    const d = new Date(base.getFullYear(), base.getMonth() - i, 1);
+    months.push({
+      key: getMonthKey(d.getTime()),
+      label: `${d.getMonth() + 1}월`,
+    });
+  }
+  return months;
+};

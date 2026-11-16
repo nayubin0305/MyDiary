@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import Header from "../component/Header";
 import Button from "../component/Button";
 import EmotionBarChart from "../component/EmotionBarChart";
-import { setPageTitle, getMonthRangeByDate, countByEmotion, emotionList } from "../util";
+import { setPageTitle, getMonthRangeByDate, countByEmotion, emotionList, countByMonth, getRecentMonths } from "../util";
 import { DiaryStateContext } from "../context/DiaryContext";
+import MonthlyBarChart from "../component/MonthlyBarChart";
 
 type Period = "month" | "all";
 
@@ -51,6 +52,16 @@ const Stats = () => {
                     ? "아직 기록된 일기가 없어요."
                     : `${periodName} 일기 ${total}개 - 가장 많은 감정은 ${topNames.join(", ")}` + (topNames.length > 1 ? `(각 ${maxCount}개)` : `(${maxCount}개)`);
 
+    // 최근 6개월
+    const monthlyItems = useMemo(() => {
+        const counts = countByMonth(data);
+        return getRecentMonths(today, 6).map((m) => ({
+            key: m.key,
+            label: m.label,
+            count: counts[m.key] ?? 0,
+        }));
+    }, [data, today]);
+
     return(
         <div className="Stats">
             <Header title="통계" leftChild={<Button text={"뒤로 가기"} onClick={goBack} />} />
@@ -61,6 +72,7 @@ const Stats = () => {
             </div>
             <EmotionBarChart counts={emotionCounts}/>
             <p className="summary">{summary}</p>
+            <MonthlyBarChart items={monthlyItems}/>
         </div>       
     );
 };
