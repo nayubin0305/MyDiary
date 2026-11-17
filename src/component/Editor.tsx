@@ -1,5 +1,5 @@
 import "./Editor.css";
-import { useState, useCallback, type ChangeEvent } from "react";
+import { useState, useCallback, type ChangeEvent, type MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { getFormattedDate, emotionList } from "../util";
 import Button from "./Button";
@@ -79,18 +79,31 @@ const Editor = ({initData, onSubmit}: EditorProps) => {
         }));
     }, []);
 
+    // 달력 이벤트
+    const handleClickDate = (e: MouseEvent<HTMLInputElement>) => {
+        e.currentTarget.focus();
+        try {
+            e.currentTarget.showPicker();
+        } catch {
+            // 오류 시 넘김
+        }
+    };
+
     return (
         <div className="Editor">
             <div className="editor_section">
                 <h4 id="date-title">오늘의 날짜</h4>
-                <div className="input_wrapper">
-                    <input type="date" name="date" aria-labelledby="date-title" value={state.date} onChange={handleChangeDate}/>
+                <div className="input_wrapper date_wrapper">
+                    <input type="date" name="date" aria-labelledby="date-title" value={state.date} onChange={handleChangeDate} onClick={handleClickDate}/>
+                    <span className="material-symbols-outlined date_icon" aria-hidden="true">
+                        calendar_month
+                    </span>
                 </div>
                 {errors.date && <p className="error_message">{errors.date}</p>}
             </div>
             <div className="editor_section">
                 <h4 id="emotion-title">오늘의 감정</h4>
-                <div className="input_wrapper emotion_list_wrapper" role="radiogroup" aria-labelledby="date-title">
+                <div className="input_wrapper emotion_list_wrapper" role="radiogroup" aria-labelledby="emotion-title">
                     {emotionList.map((it) => (
                         <EmotionItem key={it.id} {...it} onClick={handleChangeEmotion} isSelected={state.emotionId === it.id}/>
                     ))}
@@ -99,7 +112,7 @@ const Editor = ({initData, onSubmit}: EditorProps) => {
             <div className="editor_section">
                 <h4 id="content-title">오늘의 일기</h4>
                 <div className="input_wrapper">
-                    <textarea name="content" aria-labelledby="date-title" placeholder="오늘은 어땠나요?" value={state.content} onChange={handleChangeContent}/>
+                    <textarea name="content" aria-labelledby="content-title" placeholder="오늘은 어땠나요?" value={state.content} onChange={handleChangeContent}/>
                 </div>
                 {errors.content && <p className="error_message" role="alert">{errors.content}</p>}
             </div>

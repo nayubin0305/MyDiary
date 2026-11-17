@@ -5,19 +5,51 @@
     font-size: 22px;
     font-weight: 700;
 }
-.Editor input, textarea{
-    border: none;
+.Editor .date_wrapper{
+    position: relative;
+    display: inline-block;
+}
+.Editor input, .Editor textarea{
+    border: 1px solid var(--border);
     border-radius: 5px;
     background-color: var(--bg-control);
     font-size: 20px;
-    /* font-family: "Nanum Pen Script"; */
+    transition: 0.3s;
+}
+.Editor input:hover, .Editor textarea:hover{
+    background-color: var(--bg-control-hover);
+}
+.Editor input:focus, .Editor textarea:focus{
+    outline: none;
+    background-color: var(--bg-control-hover);
+    border-color: var(--accent);
 }
 .Editor input{
     padding: 10px 20px;
     cursor: pointer;
 }
 .Editor input[type="date"] {
-    color: var(--text);
+    position: relative;
+    padding-right: 44px; 
+}
+.Editor input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    inset: 0;
+    width: 48px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+.Editor .date_icon {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text); 
+    font-size: 24px;
+    pointer-events: none;
 }
 .Editor textarea{
     padding: 20px;

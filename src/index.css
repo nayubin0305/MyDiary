@@ -5,14 +5,19 @@
   /* 낮 하늘 */
   --bg-page: #eaf4fc;
   --bg-card: #fcfeff;
+  --card-fill: linear-gradient(0deg,rgba(239, 230, 255, 1) 0%, rgba(235, 253, 255, 1) 100%);
+  --bar-bg: #34285a;
   --text: #33475b;
   --text-sub: #7d92a6;
   --border: #d9e8f5;
-  --bg-control: #e3f0fa;
-  --bg-control-hover: #d3e7f6;
+  --input: #d9e8f5;
+  --bg-control: #ffffff;
+  --bg-control-hover: #d7edf3;
   --accent: #8ec5f0;
+  --accent-hover: #6da0ec;
   --accent-text: #1f3a52;
   --negative: #f5caca;
+  --negative-hover: #e6a8a8;
   --negative-text: #5a2a2a;
   --shadow: rgba(120, 160, 200, 0.25);
   --toggle-track: #bfe3ff;
@@ -20,11 +25,11 @@
   --error: #d9534f;
 
   /* 감정 5단계 (라이트/다크 공통) */
-  --emotion-1: #a0aceb;
-  --emotion-2: #C5D9A7;
-  --emotion-3: #f5f4a8;
-  --emotion-4: #f1ca9e;
-  --emotion-5: #fdb6b6;
+  --emotion-1: #88a7ff;
+  --emotion-2: #b3dfff;
+  --emotion-3: #a8f5f1;
+  --emotion-4: #ffcd83;
+  --emotion-5: #ff8e8e;
   --emotion-on-text: #17233a;
 }
 
@@ -33,14 +38,18 @@
   /* 밤 하늘 */
   --bg-page: #090c11;
   --bg-card: #17233a;
+  --card-fill: linear-gradient(0deg, #34285a 0%, #17233a 65%);
+  --bar-bg: #34285a;
   --text: #e6eefb;
   --text-sub: #93a6c3;
   --border: #2a3a58;
   --bg-control: #223250;
   --bg-control-hover: #2c4066;
   --accent: #6fb1e6;
+  --accent-hover: #a6dcf5;
   --accent-text: #0e1a2b;
   --negative: #e59a9a;
+  --negative-hover: #f7caca;
   --negative-text: #2a1414;
   --shadow: rgba(0, 0, 0, 0.5);
   --toggle-track: #2b3a67;
@@ -72,13 +81,13 @@ body{
   height: 100vh;
   height: 100dvh;
   overflow-y: auto;
-  background-color: var(--bg-card);
+  background: var(--card-fill);
   box-shadow: var(--shadow) 0px 7px 29px 0px;
 }
 
 #root::-webkit-scrollbar{
   width: 5px;
-  background-color: var(--bg-card);
+  background-color: transparent;
 }
 #root::-webkit-scrollbar-thumb{
   background-color: var(--bg-control);

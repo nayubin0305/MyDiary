@@ -5,15 +5,23 @@
 }
 .DiaryList .left_col select{
     margin-right: 10px;
-    border: none;
+    border: 1px solid var(--border);
     border-radius: 5px;
     background-color: var(--bg-control);
     padding: 10px 20px;
     cursor: pointer;
-    /* font-family: "Nanum pen Script"; */
     font-size: 18px;
     line-height: 1.5em;
     height: 47px;
+    transition: 0.3s;
+}
+.DiaryList .left_col select:hover{
+    background-color: var(--bg-control-hover);
+}
+.DiaryList .left_col select:focus{
+    outline: none;
+    background-color: var(--bg-control-hover);
+    border-color: var(--accent);
 }
 .DiaryList .right_col{
     flex-grow: 1;

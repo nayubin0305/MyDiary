@@ -7,9 +7,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border: 1px solid transparent;
 }
 .EmotionItem img{
-    width: 50%;
+    width: 90%;
     margin-bottom: 10px;
 }
 .EmotionItem span{
@@ -17,25 +18,31 @@
 }
 .EmotionItem_off{
     background-color: var(--bg-control);
+    border-color: var(--bg-control-hover);
 }
 .EmotionItem_on_1{
     background-color: var(--emotion-1);
+    border-color: var(--emotion-1);
     color: var(--emotion-on-text);
 }
 .EmotionItem_on_2{
     background-color: var(--emotion-2);
+    border-color: var(--emotion-2);
     color: var(--emotion-on-text);
 }
 .EmotionItem_on_3{
     background-color: var(--emotion-3);
+    border-color: var(--emotion-3);
     color: var(--emotion-on-text);
 }
 .EmotionItem_on_4{
     background-color: var(--emotion-4);
+    border-color: var(--emotion-4);
     color: var(--emotion-on-text);
 }
 .EmotionItem_on_5{
     background-color: var(--emotion-5);
+    border-color: var(--emotion-5);
     color: var(--emotion-on-text);
 }
 .EmotionItem input {

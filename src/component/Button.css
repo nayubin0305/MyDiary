@@ -1,21 +1,35 @@
 .Button{
     cursor: pointer;
-    border: none;
+    border: 1px solid;
     border-radius: 5px;
     padding: 10px 20px;
     font-size: 18px;
     line-height: 1.5em;
     white-space: nowrap;
+    transition: 0.3s;
 }
 .Button_default{
     background-color: var(--bg-control);
+    border-color: var(--border);
     color: var(--text);
+}
+.Button_default:hover{
+    background-color: var(--bg-control-hover);
 }
 .Button_positive {
     background-color: var(--accent);
+    border-color: var(--accent-hover);
     color: var(--accent-text);
+}
+.Button_positive:hover{
+    background-color: var(--accent-hover);
 }
 .Button_negative {
     background-color: var(--negative);
+    border-color: var(--negative-hover);
     color: var(--negative-text);
+}
+.Button_negative:hover{
+    background-color: var(--negative-hover);
+
 }
