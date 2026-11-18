@@ -40,7 +40,27 @@
     border-radius: 4px 4px 0 0;
     background-color: var(--accent);
     transition: height 0.3s;
+    animation: bar-grow 0.6s ease-out;
+    animation-fill-mode: backwards;
+}
+@keyframes bar-grow {
+    from { height: 0; }
 }
 .MonthlyBarChart .label {
-    font-size: 14px;
+    font-size: 16px;
+}
+
+@media(max-width: 480px){
+    .MonthlyBarChart{
+        margin: 50px 0 30px;
+    }
+    .MonthlyBarChart h3{
+        font-size: 18px;
+    }
+    .MonthlyBarChart h3 span{
+        font-size: 14px;
+    }
+    .MonthlyBarChart .label{
+        font-size: 14px;
+    }
 }

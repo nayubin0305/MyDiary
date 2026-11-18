@@ -21,7 +21,7 @@
 .BottomBar .tab {
     flex: 1;
     padding: 8px 0;
-    border-radius: 6px;
+    border-radius: 5px;
     text-align: center;
     text-decoration: none;
     font-size: 18px;
@@ -34,4 +34,12 @@
 .BottomBar .tab.active {
     background-color: var(--bg-control-hover);
     color: var(--text);
+}
+
+@media(max-width: 480px){
+    .BottomBar .tab{
+        font-size: 15px;
+        padding: 10px 10px;
+        border-radius: 2px;
+    }
 }

@@ -55,3 +55,28 @@
 .DiaryItem .button_section{
     min-width: 100px;
 }
+
+@media(max-width: 480px){
+    .DiaryItem{
+        padding: 8px 0;
+    }
+    .DiaryItem .img_section{
+        min-width: 80px;
+        width: 80px;
+        align-items: center;
+        border-radius: 3px;
+    }
+    .DiaryItem .img_section img{
+        width: 80%;
+        height: auto;
+        min-height: auto;
+    }
+    .DiaryItem .info_section .date_wrapper{
+        font-size: 18px;
+    }
+    .DiaryItem .button_section{
+        min-width: 70px;
+        display: flex;
+        align-items: center;
+    }
+}

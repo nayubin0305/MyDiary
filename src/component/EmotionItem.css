@@ -55,3 +55,15 @@
     outline: 2px solid var(--accent);
     outline-offset: 2px;
 }
+
+@media(max-width: 480px){
+    .EmotionItem{
+        padding: 10px 5px;
+    }
+    .EmotionItem img{
+        margin-bottom: 5px;
+    }
+    .EmotionItem span{
+        font-size: 14px;
+    }
+}

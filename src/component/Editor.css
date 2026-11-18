@@ -73,3 +73,28 @@
     font-size: 14px;
     margin: 10px 0 0;
 }
+
+@media(max-width: 480px){
+    .Editor h4{
+        font-size: 18px;
+        margin: 15px 0 10px;
+    }
+    .Editor .editor_section{
+        margin-bottom: 25px;
+    }
+    .Editor input, .Editor textarea{
+        font-size: 15px;
+        padding: 8px 10px;
+        border-radius: 2px;
+
+    }
+    .Editor .date_icon{
+        font-size: 20px;
+    }
+    .Editor textarea{
+        min-height: 120px;
+    }
+    .Editor .emotion_list_wrapper .EmotionItem{
+        flex: 1;
+    }
+}

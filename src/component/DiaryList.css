@@ -35,3 +35,27 @@
     margin: 50px 0;
     color: var(--text-sub);
 }
+
+@media(max-width: 480px){
+    .DiaryList .menu_wrapper{
+        margin: 0 0 30px;
+        flex-direction: column;
+    }
+    .DiaryList .left_col{
+        display: flex;
+        gap: 5px;
+        margin-bottom: 10px;
+    }
+    .DiaryList .left_col select{
+        font-size: 15px;
+        padding: 5px 10px;
+        border-radius: 2px;
+        height: 35px;
+        margin-right: 0;
+        flex: 1;
+    }
+    .DiaryList .noneData{
+        font-size: 18px;
+        margin: 100px 0;
+    }
+}

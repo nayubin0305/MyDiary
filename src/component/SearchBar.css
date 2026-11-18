@@ -37,3 +37,11 @@
 .SearchBar input[type="search"]::-webkit-search-cancel-button:hover {
     background-color: var(--text);  
 }
+
+@media(max-width: 480px){
+    .SearchBar input{
+        font-size: 15px;
+        padding: 5px 10px;
+        border-radius: 2px;
+    }
+}

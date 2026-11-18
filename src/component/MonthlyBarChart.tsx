@@ -20,7 +20,7 @@ const MonthlyBarChart = ({items}: MonthlyBarChartProps) => {
             <ul className="bars">
                 {items.map((it) => (
                     <li key={it.key} className="item" title={`${it.label}: ${it.count}`}>
-                        <span className="">{it.count}</span>
+                        <span className="count">{it.count}</span>
                         <span className="bar_area">
                             <span className="bar" style={{height: `${(it.count / max) * 100}%`}}></span>
                         </span>

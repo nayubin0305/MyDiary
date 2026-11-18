@@ -23,3 +23,15 @@
     width: 25%;
     justify-content: end;
 }
+
+@media(max-width: 480px){
+    .Header{
+        padding: 10px 0;
+    }
+    .Header .header_title{
+        font-size: 20px;
+    }
+    .Header button{
+        padding: 5px 13px;
+    }
+}
