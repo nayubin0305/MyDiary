@@ -4,15 +4,14 @@ import New from "./pages/New";
 import Diary from "./pages/Diary";
 import Edit from "./pages/Edit";
 import Stats from "./pages/Stats";
-import { useReducer, useRef, useEffect, useState } from "react";
+import { useReducer, useRef, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import type { DiaryType } from "./types";
 import { DiaryStateContext, DiaryDispatchContext, type DiaryDispatch } from "./context/DiaryContext";
-import { ThemeContext, type Theme } from "./context/ThemeContext";
 import BottomBar from "./component/BottomBar";
+import ThemeProvider from "./context/ThemeProvider";
 
 const STORAGE_KEY = "diary";
-const THEME_KEY = "theme";
 
 type Action =
   | { type: "CREATE"; data: DiaryType }
@@ -50,18 +49,6 @@ function loadDiaries(key: string): DiaryType[]{
   }
 }
 
-// 테마 선택
-function loadTheme(): Theme {
-  const saved = localStorage.getItem(THEME_KEY);
-  if (saved === "light" || saved === "dark") {
-    return saved;
-  }
-  // 저장된 값이 없으면 OS 설정
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
-}
-
 function App() {
   // 일기 데이터
   const [data, dispatch] = useReducer(reducer, STORAGE_KEY, loadDiaries);
@@ -70,19 +57,6 @@ function App() {
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   }, [data]);
-
-  // 테마
-  const [theme, setTheme] = useState<Theme>(loadTheme);
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-  }, [theme]);
-
-  const toggleTheme = () => {
-    const next: Theme = theme === "light" ? "dark" : "light";
-    setTheme(next);
-    localStorage.setItem(THEME_KEY, next);
-  };
 
   const onCreate: DiaryDispatch["onCreate"] = (date, content, emotionId) => { //추가
     dispatch({
@@ -115,7 +89,7 @@ function App() {
   };
 
   return (
-    <ThemeContext.Provider value={{theme, toggleTheme}}>
+    <ThemeProvider>
       <DiaryStateContext.Provider value={data}>
         <DiaryDispatchContext.Provider value={{onCreate, onUpdate, onDelete}}>
           <div className="App">
@@ -130,7 +104,7 @@ function App() {
           </div>
         </DiaryDispatchContext.Provider>
       </DiaryStateContext.Provider>
-    </ThemeContext.Provider>
+    </ThemeProvider>
   );
 }
 
