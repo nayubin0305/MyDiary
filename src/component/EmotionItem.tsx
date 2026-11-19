@@ -8,12 +8,12 @@ interface EmotionItemProps extends Emotion {
 }
 
 const EmotionItem = ({id, img, name, onClick, isSelected}: EmotionItemProps) => {
-    const handleOnClick = () => {
+    const handleOnChange = () => {
         onClick(id);
     };
     return (
         <label className={["EmotionItem", isSelected ? `EmotionItem_on_${id}` : `EmotionItem_off`].join(" ")}>
-            <input type="radio" name="emotion" value={id} checked={isSelected} onClick={handleOnClick} />
+            <input type="radio" name="emotion" value={id} checked={isSelected} onChange={handleOnChange} />
             <img alt={`emotion${id}`} src={img ?? undefined}/>
             <span>{name}</span>
         </label>
