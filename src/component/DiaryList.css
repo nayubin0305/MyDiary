@@ -12,7 +12,7 @@
     cursor: pointer;
     font-size: 18px;
     line-height: 1.5em;
-    height: 47px;
+    height: 49px;
     transition: 0.3s;
 }
 .DiaryList .left_col select:hover{
